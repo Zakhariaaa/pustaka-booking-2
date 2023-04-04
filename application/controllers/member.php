@@ -76,11 +76,23 @@ class Member extends CI_Controller
         $this->ModelUser->simpanData($data);
         $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-message" role="alert">Selamat!! akun anggota anda sudah dibuat.</div>');
         redirect(base_url());
+
+        if ($this->form_validation->run() == false) {
+            $data = [
+            'user' =>"Pengunjung",
+            'judul' => "Katalog Buku",
+            'buku' => $this->ModelBuku->getBuku()->result(),
+            ];
+            $this->load->view('templates/templates-user/header', $data);
+            $this->load->view('buku/daftarbuku', $data);
+            $this->load->view('templates/templates-user/modal');
+            $this->load->view('templates/templates-user/footer', $data);
+            } else {
+        }
     }
 
     public function myProfil()
     {
-        $data['judul'] = 'Profil Saya';
         $user = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
         
         foreach ($user as $a) {
@@ -91,7 +103,7 @@ class Member extends CI_Controller
                 'tanggal_input' => $user['tanggal_input'],
             ];
         }
-
+        $data['judul'] = 'Profil Saya';
         $this->load->view('templates/templates-user/header', $data);
         $this->load->view('member/index', $data);
         $this->load->view('templates/templates-user/modal');
@@ -162,7 +174,7 @@ class Member extends CI_Controller
     {
         $this->session->unset_userdata('email');
         $this->session->unset_userdata('role_id');
-        
+
         $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-message" role="alert">Anda telah logout!!</div>');
         redirect('home');
     }
