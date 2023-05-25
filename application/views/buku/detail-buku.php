@@ -1,9 +1,12 @@
-<div class="x_panel" align="center">
+    <div class="x_panel" align="center">
+
+
     <div class="x_content">
         <div class="row">
             <div class="col-sm-3 col-md-3">
                 <div class="thumbnail" style="height: auto; position: relative; left: 100%; width: 200%;">
                     <img src="<?php echo base_url(); ?>assets/img/upload/<?= $gambar; ?>" style="max-width:100%; max-height: 100%; height: 150px; width: 120px">
+
                     <div class="caption">
                         <h5 style="min-height:40px;" align="center"><?= $pengarang ?></h5>
                         <center>
@@ -39,7 +42,15 @@
                             </table>
                         </center>
                         <p>
-                        <a class="btn btn-outline-primary fas fw fa-shopping-cart" href="<?= base_url('booking/tambahBooking/' . $id); ?>"> Booking</a>
+                            <?php
+                if ($stok < 1) {
+                  echo "<i class=' disabled btn btn-outline-primary fas fw fa-ban' style='color:red'> Stock&nbsp;&nbsp 0</i>";
+                } else {
+                  echo "<a class='btn btn-outline-primary fas fw fa-shopping-cart' href='" . base_url('booking/tambahBooking/'. $id) . "'> Booking</a>";
+                }
+                ?>
+
+                            <!-- <a class="btn btn-outline-primary fas fw fa-shopping-cart" href="<?= base_url('booking/tambahBooking/' . $id); ?>"> Booking</a> -->
                             <span class="btn btn-outline-secondary fas fw fa-reply" onclick="window.history.go(-1)"> Kembali</span>
                         </p>
                     </div>
@@ -47,4 +58,5 @@
             </div>
         </div>
     </div>
-</div>   
+
+</div>
