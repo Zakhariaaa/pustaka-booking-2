@@ -171,7 +171,7 @@ class Booking extends CI_Controller
             $dompdf->load_html($html);
             $dompdf->render();
             $dompdf->stream("bukti-booking-$id_user.pdf", array('Attachment' => 0));
-            // nama file pdf yang di hasilkan
+            // nama file pdf yang di hasilkan 
           }
       }
   }
